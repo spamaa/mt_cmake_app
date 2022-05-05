@@ -1,0 +1,11 @@
+{
+	"default-registry": null,
+	"registries" : [
+		{
+			"kind": "git",
+			"repository": "git-matterfi@odroidH2:repos/VcpkgPortProject.git",
+			"baseline": "8e644c8e5e506d3666ebfd9edff4e0d7a8e7b677",
+			"packages": [ "beicode" ]
+		}
+	]
+}
