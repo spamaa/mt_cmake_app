@@ -42,4 +42,4 @@ message (STATUS "!!!!== AFTER set MSVC_LINKING_TYPE: '${MSVC_LINKING_TYPE}' ==!!
 # TODO: Add tests and install targets if needed.
 #target_link_libraries(${PROJECT_NAME} PRIVATE cmake-lib-top)
 #target_link_libraries(${PROJECT_NAME} PRIVATE CMakeLibTop)
-target_link_libraries(${PROJECT_NAME} PRIVATE cmake-static-lib::cmake-static-lib)
+target_link_libraries(${PROJECT_NAME} PRIVATE CMakeStaticLib::CMakeStaticLib)
