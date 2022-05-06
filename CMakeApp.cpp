@@ -3,14 +3,14 @@
 
 #include "CMakeApp.h"
 #include <iostream>
-#include <beicode.h>
+#include <CMakeStaticLib.h>
 
 using namespace std;
 
 int main()
 {
 	cout << "Message from beicode" << endl;
-	beicode::About();
+	CMakeStaticLib::About();
 
 	return 0;
 }

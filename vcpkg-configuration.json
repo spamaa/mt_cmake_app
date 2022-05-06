@@ -4,8 +4,8 @@
 		{
 			"kind": "git",
 			"repository": "git-matterfi@odroidH2:repos/VcpkgPortProject.git",
-			"baseline": "8e644c8e5e506d3666ebfd9edff4e0d7a8e7b677",
-			"packages": [ "beicode" ]
+			"baseline": "e561a380ad27f43ea4c4b31b76ef2ff22ee0f7dd",
+			"packages": [ "cmake-static-lib" ]
 		}
 	]
 }

@@ -1,7 +1,7 @@
 {
 "name": "cmake-app",
-"version": "1.0.3",
+"version": "1.2.0",
 "dependencies": [
-	"beicode"
+	"cmake-static-lib"
 ]
 }
