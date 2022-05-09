@@ -1,0 +1,63 @@
+{
+    "version": 3,
+    "cmakeMinimumRequired": {
+        "major": 3,
+        "minor": 20,
+        "patch": 0
+    },
+
+    "configurePresets": [
+        {
+            "name": "msvc_base",
+            "hidden": true,
+            "description": "Common settings for all msvc configurations",
+            "generator": "Ninja",
+            "binaryDir": "${sourceDir}/build/${presetName}",
+            "installDir": "${sourceDir}/install/${presetName}",
+            "cacheVariables": {
+                "CMAKE_TOOLCHAIN_FILE": "${sourceDir}/cmake_toolchains/msvc.cmake"
+            }
+        },
+        {
+            "name": "msvc_x64_static_debug",
+            "displayName": "MSVC x64 static(debug)",
+            "description": "Use msvc compiler, architecture x64, static linking, with debug symbols",
+            "inherits": "msvc_base",
+            "architecture": {
+                "value": "x64",
+                "strategy": "external"
+            },
+            "cacheVariables": {
+                "CMAKE_BUILD_TYPE": "Debug",
+                "VCPKG_TARGET_TRIPLET": "x64-windows-static"
+            }
+
+        },
+        {
+            "name": "msvc_x64_static_release",
+            "displayName": "MSVC x64 static(release)",
+            "description": "Use msvc compiler, architecture x64, static linking, no debug symbols",
+            "inherits": "msvc_base",
+            "architecture": {
+                "value": "x64",
+                "strategy": "external"
+            },
+            "cacheVariables": {
+                "CMAKE_BUILD_TYPE": "Release",
+                "VCPKG_TARGET_TRIPLET": "x64-windows-static"
+            }
+
+        }
+
+    ],
+    "buildPresets": [
+        {
+            "name": "msvc_x64_static_debug",
+            "configurePreset": "msvc_x64_static_debug"
+        },
+        {
+            "name": "msvc_x64_static_release",
+            "configurePreset": "msvc_x64_static_release"
+        }
+    ]
+}
