@@ -4,9 +4,11 @@
 cmake_minimum_required (VERSION 3.15)
 
 
-set(VCPKG_TARGET_TRIPLET x64-windows-static)
-set(VCPKG_OVERLAY_TRIPLETS c:/work/repos/matterfi/VcpkgPortProject/triplets)
-set(VCPKG_FEATURE_FLAGS "registries,manifest")
+# this must be set if you want to compile direct from vstudio
+#set(CMAKE_TOOLCHAIN_FILE c:/work/repos/public/vcpkg/scripts/buildsystems/vcpkg.cmake)
+#set(VCPKG_TARGET_TRIPLET x64-windows-static)
+#set(VCPKG_OVERLAY_TRIPLETS c:/work/repos/matterfi/VcpkgPortProject/triplets)
+#set(VCPKG_FEATURE_FLAGS "registries,manifest")
 
 project ("CMakeApp")
 
@@ -17,12 +19,8 @@ message (STATUS "!!!!== VCPKG_TARGET_TRIPLET: '${VCPKG_TARGET_TRIPLET}' ==!!!!")
 message (STATUS "!!!!== VCPKG_MANIFEST_FEATURES: '${VCPKG_MANIFEST_FEATURES}' ==!!!!")
 message (STATUS "!!!!== VCPKG_OVERLAY_TRIPLETS: '${VCPKG_OVERLAY_TRIPLETS}' ==!!!!")
 
-#find_package(Threads REQUIRED)
-#find_package(cmake-lib-top REQUIRED)
-
-#find_package(CMakeLibTop REQUIRED)
-
 find_package(cmake-top-lib CONFIG REQUIRED)
+find_package(cmake-static-lib CONFIG REQUIRED)
 
 # Add source to this project's executable.
 add_executable (${PROJECT_NAME} CMakeApp.cpp)
@@ -40,6 +38,4 @@ get_target_property(MSVC_LINKING_TYPE ${PROJECT_NAME} MSVC_RUNTIME_LIBRARY)
 message (STATUS "!!!!== AFTER set MSVC_LINKING_TYPE: '${MSVC_LINKING_TYPE}' ==!!!!")
 
 # TODO: Add tests and install targets if needed.
-#target_link_libraries(${PROJECT_NAME} PRIVATE cmake-lib-top)
-#target_link_libraries(${PROJECT_NAME} PRIVATE CMakeLibTop)
 target_link_libraries(${PROJECT_NAME} PRIVATE CMakeTopLib::CMakeTopLib)

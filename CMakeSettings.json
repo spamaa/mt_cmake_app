@@ -7,7 +7,7 @@
             "inheritEnvironments": [ "msvc_x64_x64" ],
             "buildRoot": "${projectDir}\\build\\x64-Debug\\build\\${name}",
             "installRoot": "${projectDir}\\build\\x64-Debug\\install\\${name}",
-            "cmakeCommandArgs": "",
+            "cmakeCommandArgs": "-DCMAKE_TOOLCHAIN_FILE=c:/work/repos/public/vcpkg/scripts/buildsystems/vcpkg.cmake -DVCPKG_TARGET_TRIPLET=x64-windows-static -DVCPKG_OVERLAY_TRIPLETS=c:/work/repos/matterfi/VcpkgPortProject/triplets -DVCPKG_FEATURE_FLAGS=\"registries,manifest\"",
             "buildCommandArgs": "-v -k 1",
             "ctestCommandArgs": ""
         },

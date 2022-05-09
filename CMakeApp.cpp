@@ -3,14 +3,19 @@
 
 #include "CMakeApp.h"
 #include <iostream>
-#include <CMakeStaticLib.h>
+#include <CMakeTopLib.h>
 
 using namespace std;
 
 int main()
 {
-	cout << "Message from beicode" << endl;
-	CMakeStaticLib::About();
+	::std::cout << "===" << ::std::endl;
+	::CMakeTopLib::About();
+	::std::cout << ::std::endl;
+
+	::std::cout << "===" << ::std::endl;
+	CMakeTopLib::AboutStaticLib();
+	::std::cout << ::std::endl;
 
 	return 0;
 }
