@@ -1,4 +1,5 @@
 {
+    "_comment": "This file requires following enviroment variables: VCPKG_ROOT_DIR - pointing to root directory of vcpkg installation, VCPKG_TRIPLETS_DIR - pointing to directory with triplet file definitions",
     "version": 3,
     "cmakeMinimumRequired": {
         "major": 3,
@@ -8,56 +9,160 @@
 
     "configurePresets": [
         {
-            "name": "msvc_base",
+            "name": "common_configurePresets",
             "hidden": true,
-            "description": "Common settings for all msvc configurations",
+            "description": "common settings for all presets. Sets default instal & build paths, generator, configures vcpkg",
             "generator": "Ninja",
             "binaryDir": "${sourceDir}/build/${presetName}",
             "installDir": "${sourceDir}/install/${presetName}",
             "cacheVariables": {
-                "CMAKE_TOOLCHAIN_FILE": "${sourceDir}/cmake_toolchains/msvc.cmake"
+                "comment": "configure vcpkg",
+                "VCPKG_OVERLAY_TRIPLETS": "$env{VCPKG_TRIPLETS_DIR}",
+                "VCPKG_FEATURE_FLAGS": "registries,manifest",
+                "CMAKE_TOOLCHAIN_FILE": "$env{VCPKG_ROOT_DIR}scripts/buildsystems/vcpkg.cmake"
+            },
+            "warnings": {
+                "unusedCli": false
+            }
+
+        },
+        {
+            "name": "common_debug",
+            "hidden": true,
+            "description": "common settings for all debugs",
+            "cacheVariables": {
+                "CMAKE_BUILD_TYPE": "Debug"
             }
         },
+        {
+            "name": "common_release",
+            "hidden": true,
+            "description": "common settings for all releases",
+            "cacheVariables": {
+                "CMAKE_BUILD_TYPE": "Release"
+            }
+        },
+        {
+            "name": "common_ext",
+            "hidden": true,
+            "description": "common settings for using extended version of libraries",
+            "cacheVariables": {
+                "USE_EXTENDED_LIBS": "ON"
+            }
+        },
+
+
+        {
+            "name": "msvc_base",
+            "hidden": true,
+            "description": "Common settings for all msvc presets",
+            "inherits": "common_configurePresets",
+            "cacheVariables": {
+                "comment": "set msvc compiler",
+                "CMAKE_C_COMPILER": "cl.exe",
+                "CMAKE_CXX_COMPILER": "cl.exe"
+            }
+        },
+        {
+            "name": "msvc_x64_static",
+            "hidden": true,
+            "description": "Common settings for all all msvc x64 static presets",
+            "inherits": "msvc_base",
+            "cacheVariables": {
+                "VCPKG_TARGET_TRIPLET": "x64-msvc-static"
+            },
+            "architecture": {
+                "value": "x64",
+                "strategy": "external"
+            }
+        },
+        {
+            "name": "msvc_x64_static_asan",
+            "hidden": true,
+            "description": "Common settings for all all msvc 64 static presets with address sanitizer",
+            "inherits": "msvc_x64_static",
+            "cacheVariables": {
+                "VCPKG_TARGET_TRIPLET": "x64-msvc-static-asan",
+                "MSVC_ENABLE_ASAN": "ON"
+            }
+        },
+
+
+
         {
             "name": "msvc_x64_static_debug",
             "displayName": "MSVC x64 static(debug)",
             "description": "Use msvc compiler, architecture x64, static linking, with debug symbols",
-            "inherits": "msvc_base",
-            "architecture": {
-                "value": "x64",
-                "strategy": "external"
-            },
-            "cacheVariables": {
-                "CMAKE_BUILD_TYPE": "Debug",
-                "VCPKG_TARGET_TRIPLET": "x64-windows-static"
-            }
-
+            "inherits": [ "msvc_x64_static", "common_debug" ]
+        },
+        {
+            "name": "msvc_x64_static_debug_ext",
+            "displayName": "MSVC x64 static ext(debug)",
+            "description": "Use msvc compiler, architecture x64, static linking extended libraries, with debug symbols",
+            "inherits": [ "msvc_x64_static", "common_debug", "common_ext" ]
+        },
+        {
+            "name": "msvc_x64_static_debug_asan",
+            "displayName": "MSVC x64 static(debug with addr sanitizer)",
+            "description": "Use msvc compiler, architecture x64, static linking, with debug symbols with address sanitizer",
+            "inherits": [ "msvc_x64_static_asan", "common_debug" ]
+        },
+        {
+            "name": "msvc_x64_static_debug_ext_asan",
+            "displayName": "MSVC x64 static ext(debug with addr sanitizer)",
+            "description": "Use msvc compiler, architecture x64, static linking extended libraries, with debug symbols with address sanitizer",
+            "inherits": [ "msvc_x64_static_asan", "common_debug", "common_ext" ]
         },
         {
             "name": "msvc_x64_static_release",
             "displayName": "MSVC x64 static(release)",
             "description": "Use msvc compiler, architecture x64, static linking, no debug symbols",
-            "inherits": "msvc_base",
-            "architecture": {
-                "value": "x64",
-                "strategy": "external"
-            },
-            "cacheVariables": {
-                "CMAKE_BUILD_TYPE": "Release",
-                "VCPKG_TARGET_TRIPLET": "x64-windows-static"
-            }
-
+            "inherits": [ "msvc_x64_static", "common_release" ]
+        },
+        {
+            "name": "msvc_x64_static_release_asan",
+            "displayName": "MSVC x64 static(release with addr sanitizer)",
+            "description": "Use msvc compiler, architecture x64, static linking, no debug symbols with address sanitizer",
+            "inherits": [ "msvc_x64_static_asan", "common_release" ]
         }
 
     ],
     "buildPresets": [
         {
+            "name": "common_buildPresets",
+            "hidden": true,
+            "verbose": true,
+            "nativeToolOptions": [ "-k 0" ]
+        },
+        {
             "name": "msvc_x64_static_debug",
+            "inherits": "common_buildPresets",
             "configurePreset": "msvc_x64_static_debug"
         },
         {
+            "name": "msvc_x64_static_debug_ext",
+            "inherits": "common_buildPresets",
+            "configurePreset": "msvc_x64_static_debug_ext"
+        },
+        {
+            "name": "msvc_x64_static_debug_asan",
+            "inherits": "common_buildPresets",
+            "configurePreset": "msvc_x64_static_debug_asan"
+        },
+        {
+            "name": "msvc_x64_static_debug_ext_asan",
+            "inherits": "common_buildPresets",
+            "configurePreset": "msvc_x64_static_debug_ext_asan"
+        },
+        {
             "name": "msvc_x64_static_release",
+            "inherits": "common_buildPresets",
             "configurePreset": "msvc_x64_static_release"
+        },
+        {
+            "name": "msvc_x64_static_release_asan",
+            "inherits": "common_buildPresets",
+            "configurePreset": "msvc_x64_static_release_asan"
         }
     ]
 }
