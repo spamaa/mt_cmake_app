@@ -64,10 +64,30 @@
             }
         },
         {
+            "name": "matterfi_cmake_modules",
+            "hidden": true,
+            "description": "common settings for configurations that will be using matterfi cmake modules in project cmakes",
+            "cacheVariables": {
+                "MATTERFI_CMAKE_CONFIG_FILE": "share/matterfi-cmake/matterfi_config.cmake"
+            }
+        },
+        {
+            "name": "matterfi_cmake_modules_x64_windows",
+            "hidden": true,
+            "description": "additional setting for projects using matterfi cmake modules for windows x64 targets",
+            "inherits": "matterfi_cmake_modules",
+            "cacheVariables": {
+                "MATTERFI_CMAKE_HOST_TRIPLET": "x64-windows"
+            }
+        },
+        {
             "name": "msvc_x64_static",
             "hidden": true,
             "description": "Common settings for all all msvc x64 static presets",
-            "inherits": "msvc_base",
+            "inherits": [
+                "msvc_base",
+                "matterfi_cmake_modules_x64_windows"
+            ],
             "cacheVariables": {
                 "VCPKG_TARGET_TRIPLET": "x64-msvc-static"
             },
