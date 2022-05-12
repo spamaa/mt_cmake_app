@@ -3,6 +3,10 @@
 "version": "1.5.1",
 "dependencies": [
 	"cmake-top-lib",
-	"fmt"
+	"fmt",
+	{
+		"name": "matterfi-cmake",
+		"host": true
+	}
 ]
 }
