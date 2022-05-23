@@ -1,5 +1,4 @@
 {
-    "_comment": "This file requires following enviroment variables: VCPKG_ROOT_DIR - pointing to root directory of vcpkg installation, VCPKG_TRIPLETS_DIR - pointing to directory with triplet file definitions",
     "version": 3,
     "cmakeMinimumRequired": {
         "major": 3,
