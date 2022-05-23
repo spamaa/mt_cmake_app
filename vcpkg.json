@@ -1,6 +1,6 @@
 {
 "name": "cmake-app",
-"version": "1.5.1",
+"version": "1.6.0",
 "dependencies": [
 	"cmake-top-lib",
 	"fmt",
